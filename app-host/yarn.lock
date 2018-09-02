@@ -1832,6 +1832,12 @@ dns-txt@^2.0.2:
   dependencies:
     buffer-indexof "^1.0.0"
 
+document-register-element@^1.7.2:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/document-register-element/-/document-register-element-1.11.0.tgz#18ad8a0297097a32f8811b5e63736eb71928f446"
+  dependencies:
+    lightercollective "^0.1.0"
+
 dom-converter@~0.1:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/dom-converter/-/dom-converter-0.1.4.tgz#a45ef5727b890c9bffe6d7c876e7b19cb0e17f3b"
@@ -3611,6 +3617,10 @@ lie@~3.1.0:
   resolved "https://registry.yarnpkg.com/lie/-/lie-3.1.1.tgz#9a436b2cc7746ca59de7a41fa469b3efb76bd87e"
   dependencies:
     immediate "~3.0.5"
+
+lightercollective@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/lightercollective/-/lightercollective-0.1.0.tgz#70df102c530dcb8d0ccabfe6175a8d00d5f61300"
 
 load-json-file@^1.0.0:
   version "1.1.0"
