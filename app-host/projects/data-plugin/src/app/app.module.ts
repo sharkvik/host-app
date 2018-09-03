@@ -3,13 +3,15 @@ import { NgModule, Injector } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { createCustomElement } from '@angular/elements';
+import { SharedModule } from 'projects/shared/src/public_api';
 
 @NgModule({
 	declarations: [
 		AppComponent
 	],
 	imports: [
-		BrowserModule
+		BrowserModule,
+		SharedModule.forRoot()
 	],
 	entryComponents: [AppComponent]
 })

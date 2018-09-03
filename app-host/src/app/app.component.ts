@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PluginLoaderService } from './plugin-loader.service';
 import * as _ from 'lodash';
+import { PluginCommunicationService } from 'projects/shared/src/lib/plugin-communication.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
 	selector: 'nvm-root',
@@ -12,7 +14,12 @@ export class AppComponent implements OnInit {
 	public title = 'nvm';
 
 	private _currentPlugin: HTMLElement;
-	constructor(private _pluginLoader: PluginLoaderService) {}
+	constructor(private _pluginLoader: PluginLoaderService, private _pluginShareSrevice: PluginCommunicationService, private _title: Title) {
+		this._pluginShareSrevice.register<string>('host', 'documentTitle')
+			.subscribe((data: string) => {
+				this._title.setTitle(data);
+			});
+	}
 
 	public ngOnInit(): void {
 		this._pluginLoader
