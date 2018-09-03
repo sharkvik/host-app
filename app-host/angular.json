@@ -238,26 +238,114 @@
         }
       }
     },
-    "placeholder-plugin-e2e": {
-      "root": "projects/placeholder-plugin-e2e/",
+    "data-plugin": {
+      "root": "projects/data-plugin/",
+      "sourceRoot": "projects/data-plugin/src",
       "projectType": "application",
+      "prefix": "nvm",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss",
+          "spec": false
+        },
+        "@schematics/angular:class": {
+          "spec": false
+        },
+        "@schematics/angular:directive": {
+          "spec": false
+        },
+        "@schematics/angular:guard": {
+          "spec": false
+        },
+        "@schematics/angular:module": {
+          "spec": false
+        },
+        "@schematics/angular:pipe": {
+          "spec": false
+        },
+        "@schematics/angular:service": {
+          "spec": false
+        }
+      },
       "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+        "build": {
+          "builder": "ngx-build-plus:build",
           "options": {
-            "protractorConfig": "projects/placeholder-plugin-e2e/protractor.conf.js",
-            "devServerTarget": "placeholder-plugin:serve"
+            "outputPath": "dist/data-plugin",
+            "index": "projects/data-plugin/src/index.html",
+            "main": "projects/data-plugin/src/main.ts",
+            "polyfills": "projects/data-plugin/src/polyfills.ts",
+            "tsConfig": "projects/data-plugin/tsconfig.app.json",
+            "assets": [
+              "projects/data-plugin/src/favicon.ico",
+              "projects/data-plugin/src/assets"
+            ],
+            "styles": [
+              "projects/data-plugin/src/styles.scss"
+            ],
+            "scripts": []
           },
           "configurations": {
             "production": {
-              "devServerTarget": "placeholder-plugin:serve:production"
+              "fileReplacements": [
+                {
+                  "replace": "projects/data-plugin/src/environments/environment.ts",
+                  "with": "projects/data-plugin/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
             }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "data-plugin:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "data-plugin:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "data-plugin:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/data-plugin/src/test.ts",
+            "polyfills": "projects/data-plugin/src/polyfills.ts",
+            "tsConfig": "projects/data-plugin/tsconfig.spec.json",
+            "karmaConfig": "projects/data-plugin/karma.conf.js",
+            "styles": [
+              "projects/data-plugin/src/styles.scss"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/data-plugin/src/favicon.ico",
+              "projects/data-plugin/src/assets"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "projects/placeholder-plugin-e2e/tsconfig.e2e.json",
+            "tsConfig": [
+              "projects/data-plugin/tsconfig.app.json",
+              "projects/data-plugin/tsconfig.spec.json"
+            ],
             "exclude": [
               "**/node_modules/**"
             ]

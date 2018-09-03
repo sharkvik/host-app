@@ -9,8 +9,10 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:placeholder-plugin": "ng build --project placeholder-plugin --output-hashing none",
-    "copy:placeholder-plugin": "cpr dist/placeholder-plugin/main.js src/assets/plugins/placeholder-plugin.bundle.js -o",
-    "build-all": "npm run build:placeholder-plugin && npm run copy:placeholder-plugin"
+	"copy:placeholder-plugin": "cpr dist/placeholder-plugin/main.js src/assets/plugins/placeholder-plugin.bundle.js -o",
+	"build:data-plugin": "ng build --project data-plugin --output-hashing none",
+    "copy:data-plugin": "cpr dist/data-plugin/main.js src/assets/plugins/data-plugin.bundle.js -o",
+    "build-all": "npm run build:placeholder-plugin && npm run copy:placeholder-plugin && npm run build:data-plugin && npm run copy:data-plugin"
   },
   "private": true,
   "dependencies": {
@@ -32,9 +34,10 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.7.5",
-    "@angular/cli": "~6.0.8",
     "@angular/compiler-cli": "^6.0.3",
+    "@angular-devkit/build-angular": "0.7.5",
+    "typescript": "~2.7.2",
+    "@angular/cli": "~6.0.8",
     "@angular/language-service": "^6.0.3",
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",
@@ -50,7 +53,6 @@
     "ngx-build-plus": "^6.1.0",
     "protractor": "~5.3.0",
     "ts-node": "~5.0.1",
-    "tslint": "~5.9.1",
-    "typescript": "~2.7.2"
+    "tslint": "~5.9.1"
   }
 }
