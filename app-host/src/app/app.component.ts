@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ApplicationRef } from '@angular/core';
 import { PluginLoaderService } from './plugin-loader.service';
 import * as _ from 'lodash';
 import { PluginCommunicationService, PluginCommunicationEvent } from 'projects/shared/src/lib/plugin-communication.service';
@@ -14,7 +14,12 @@ export class AppComponent implements OnInit {
 	public title = 'nvm-root';
 
 	private _currentPlugin: HTMLElement;
-	constructor(private _pluginLoader: PluginLoaderService, private _pluginShareSrevice: PluginCommunicationService, private _title: Title) {
+	constructor(
+		private _app: ApplicationRef,
+		private _pluginLoader: PluginLoaderService,
+		private _pluginShareSrevice: PluginCommunicationService,
+		private _title: Title
+	) {
 		this._title.setTitle(this.title);
 		this._pluginShareSrevice.registerHostEvent<string>('nvm-root', 'changeTitle')
 			.subscribe((data: PluginCommunicationEvent<string>) => {
@@ -23,6 +28,7 @@ export class AppComponent implements OnInit {
 				} else {
 					this._title.setTitle(this.title);
 				}
+				this._app.tick();
 			});
 	}
 
@@ -31,6 +37,7 @@ export class AppComponent implements OnInit {
 			.registredPlugins
 			.subscribe( (keys: string[]) => {
 				this.plugins = keys;
+				this._app.tick();
 			});
 	}
 
@@ -47,5 +54,6 @@ export class AppComponent implements OnInit {
 		}
 		container.appendChild(content);
 		this._currentPlugin = content;
+		this._app.tick();
 	}
 }
