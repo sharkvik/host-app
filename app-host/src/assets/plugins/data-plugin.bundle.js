@@ -83413,7 +83413,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n\tЭто пустой плагин заглушка\n</div>\n"
+module.exports = "<div>\n\tdata-plugin\n</div>\n"
 
 /***/ }),
 
@@ -83439,21 +83439,33 @@ module.exports = ""
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _shared_src_lib_plugin_communication_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../shared/src/lib/plugin-communication.service */ "../shared/src/lib/plugin-communication.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+    function AppComponent(_sharedService) {
+        this._sharedService = _sharedService;
+        this.title = 'data-plugin';
+        this._sharedService.trigger('changeTitle', 'data-plugin', 'data-plugin');
     }
+    AppComponent.prototype.ngOnDestroy = function () {
+        this._sharedService.trigger('changeTitle', 'data-plugin', null);
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
-        })
+        }),
+        __metadata("design:paramtypes", [_shared_src_lib_plugin_communication_service__WEBPACK_IMPORTED_MODULE_1__["PluginCommunicationService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -83497,7 +83509,7 @@ var AppModule = /** @class */ (function () {
     }
     AppModule.prototype.ngDoBootstrap = function () {
         var externalTileCE = Object(_angular_elements__WEBPACK_IMPORTED_MODULE_3__["createCustomElement"])(_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"], { injector: this.injector });
-        customElements.define('placeholder-plugin', externalTileCE);
+        customElements.define('data-plugin', externalTileCE);
     };
     AppModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
@@ -83579,7 +83591,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! F:\work\Personal\host-app\app-host\projects\placeholder-plugin\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! F:\work\Personal\host-app\app-host\projects\data-plugin\src\main.ts */"./src/main.ts");
 
 
 /***/ })

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class PluginLoaderService {
-	private _loadedPlugins: Map<string, HTMLElement> = new Map<string, HTMLElement>();
+	private _loadedPlugins: Map<string, string> = new Map<string, string>();
 	constructor(private _settings: SettingsService) { }
 
 	public get registredPlugins(): Observable<string[]> {
@@ -21,7 +21,9 @@ export class PluginLoaderService {
 	public loadPlugin(key: string): Observable<HTMLElement> {
 		return new Observable<HTMLElement>((s) => {
 			if (this._loadedPlugins.has(key)) {
-				s.next(this._loadedPlugins.get(key));
+				const selector = this._loadedPlugins.get(key);
+				const element = document.createElement(selector);
+				s.next(element);
 				s.complete();
 				return;
 			}
@@ -32,8 +34,9 @@ export class PluginLoaderService {
 					const script = document.createElement('script');
 					script.src = plugin.url;
 					document.body.appendChild(script);
+					this._loadedPlugins.set(key, plugin.selector);
+
 					const element = document.createElement(plugin.selector);
-					this._loadedPlugins.set(key, element);
 					s.next(element);
 					s.complete();
 				});

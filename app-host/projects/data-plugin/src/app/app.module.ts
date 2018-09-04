@@ -21,6 +21,6 @@ export class AppModule {
 
 	ngDoBootstrap() {
 		const externalTileCE = createCustomElement(AppComponent, { injector: this.injector });
-		customElements.define('placeholder-plugin', externalTileCE);
+		customElements.define('data-plugin', externalTileCE);
 	}
 }
