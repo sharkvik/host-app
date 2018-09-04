@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PluginLoaderService } from './plugin-loader.service';
 import * as _ from 'lodash';
-import { PluginCommunicationService } from 'projects/shared/src/lib/plugin-communication.service';
+import { PluginCommunicationService, PluginCommunicationEvent } from 'projects/shared/src/lib/plugin-communication.service';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -11,13 +11,18 @@ import { Title } from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit {
 	public plugins: string[] = [];
-	public title = 'nvm';
+	public title = 'nvm-root';
 
 	private _currentPlugin: HTMLElement;
 	constructor(private _pluginLoader: PluginLoaderService, private _pluginShareSrevice: PluginCommunicationService, private _title: Title) {
-		this._pluginShareSrevice.register<string>('host', 'documentTitle')
-			.subscribe((data: string) => {
-				this._title.setTitle(data);
+		this._title.setTitle(this.title);
+		this._pluginShareSrevice.registerHostEvent<string>('nvm-root', 'changeTitle')
+			.subscribe((data: PluginCommunicationEvent<string>) => {
+				if (!_.isEmpty(data.data)) {
+					this._title.setTitle(`${data.target}: ${data.data}`);
+				} else {
+					this._title.setTitle(this.title);
+				}
 			});
 	}
 
@@ -30,14 +35,17 @@ export class AppComponent implements OnInit {
 	}
 
 	public loadPlugin(key: string): void {
-		this._pluginLoader.loadPlugin(key)
-			.subscribe((content: HTMLElement) => {
-				const container = document.getElementById('plugin-placeholder');
-				if (!_.isNil(this._currentPlugin)) {
-					container.removeChild(this._currentPlugin);
-				}
-				container.appendChild(content);
-				this._currentPlugin = content;
-			});
+		this._pluginLoader
+			.loadPlugin(key)
+			.subscribe((content: HTMLElement) => this._displayPlugin(content));
+	}
+
+	private _displayPlugin(content: HTMLElement) {
+		const container = document.getElementById('plugin-placeholder');
+		if (!_.isNil(this._currentPlugin)) {
+			container.removeChild(this._currentPlugin);
+		}
+		container.appendChild(content);
+		this._currentPlugin = content;
 	}
 }

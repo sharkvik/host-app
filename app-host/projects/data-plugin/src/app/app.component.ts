@@ -6,12 +6,12 @@ import { PluginCommunicationService } from '../../../shared/src/lib/plugin-commu
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnDestroy {
-	title = 'nvm';
+	title = 'data-plugin';
 	constructor(private _sharedService: PluginCommunicationService) {
-		this._sharedService.setData('host', 'documentTitle', 'data-plugin');
+		this._sharedService.trigger('changeTitle', 'data-plugin', 'data-plugin');
 	}
 
 	public ngOnDestroy(): void {
-		this._sharedService.setData('host', 'documentTitle', 'nvm');
+		this._sharedService.trigger('changeTitle', 'data-plugin', null);
 	}
 }

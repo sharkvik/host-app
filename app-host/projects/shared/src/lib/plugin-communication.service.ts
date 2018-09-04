@@ -4,36 +4,44 @@ import { Subject, Observable } from 'rxjs';
 
 @Injectable()
 export class PluginCommunicationService implements OnDestroy {
-	private readonly _eventName = 'PluginCommunication.sendDataToPlugin';
-	private _plugins: Map<string, Subject<any>> = new Map<string, Subject<any>>();
+	private readonly _eventName = 'PluginCommunicationService.dataTransfer';
+	private _hostEvents: Map<string, Map<string, Subject<PluginCommunicationEvent<any>>>> = new Map<string, Map<string, Subject<PluginCommunicationEvent<any>>>>();
 
 	constructor() {
-		document.addEventListener(this._eventName, this._sendData);
+		document.addEventListener(this._eventName, this._notify);
 	}
 
 	public ngOnDestroy(): void {
-		document.removeEventListener(this._eventName, this._sendData);
+		document.removeEventListener(this._eventName, this._notify);
 	}
 
-	public setData<T>(pluginName: string, eventName: string, data: T): void {
-		const key = this._toKey(pluginName, eventName);
-		document.dispatchEvent(new CustomEvent( this._eventName, {detail: {plugin: key, data: data}}));
+	public registerHostEvent<T>(hostId: string, eventName: string): Subject<PluginCommunicationEvent<T>> {
+		if (this._hostEvents.has(eventName)) {
+			const hosts = this._hostEvents.get(eventName);
+			if (hosts.has(hostId)) {
+				throw Error(`PluginCommunicationService.registerHostEvent<> host ${hostId} event ${eventName} was registred`);
+			}
+			hosts.set(hostId, new Subject<PluginCommunicationEvent<T>>());
+			return hosts.get(hostId);
+		}
+		this._hostEvents.set(eventName, new Map<string, Subject<PluginCommunicationEvent<T>>>());
+		const newHosts = this._hostEvents.get(eventName);
+		newHosts.set(hostId, new Subject<PluginCommunicationEvent<T>>());
+		return newHosts.get(hostId);
 	}
 
-	public register<T>(pluginName: string, eventName: string): Observable<T> {
-		const key = this._toKey(pluginName, eventName);
-		this._plugins.set(`${pluginName}.${eventName}`, new Subject<T>());
-		return this._plugins.get(key) as Subject<T>;
+	public trigger<T>(eventName: string, pluginId: string, data: T): void {
+		document.dispatchEvent(new CustomEvent( this._eventName, {detail: new PluginCommunicationEvent<T>(pluginId, eventName, data)}));
 	}
 
-	private _sendData = (data: CustomEvent) => {
-		const subject$ = this._plugins.get(data.detail.plugin);
-		if (!_.isNil(subject$)) {
-			subject$.next(data.detail.data);
+	private _notify = (data: CustomEvent) => {
+		const subjects = this._hostEvents.get(data.detail.eventName);
+		if (!_.isEmpty(subjects)) {
+			subjects.forEach((subject$: Subject<any>) => subject$.next(data.detail));
 		}
 	}
+}
 
-	private _toKey(pluginName: string, eventName: string): string {
-		return `${pluginName}.${eventName}`;
-	}
+export class PluginCommunicationEvent<T> {
+	constructor(public target: string, public eventName: string, public data: T) {}
 }
