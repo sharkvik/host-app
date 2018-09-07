@@ -1,6 +1,6 @@
 <div>
-	<ul *ngIf="plugins.length > 0">
-		<li *ngFor="let plugin of plugins" (click)="loadPlugin(plugin)">
+	<ul *ngIf="plugins.length > 0" class="nav">
+		<li *ngFor="let plugin of plugins" (click)="loadPlugin(plugin)" class="nav__item">
 			{{plugin}}
 		</li>
 	</ul>
