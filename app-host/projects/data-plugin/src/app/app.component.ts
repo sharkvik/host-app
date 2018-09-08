@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { PluginCommunicationService } from '../../../shared/src/lib/plugin-communication.service';
+import { PluginCommunicationService } from 'projects/plugin-framework/src/public_api';
 
 @Component({
 	templateUrl: './app.component.html',

@@ -3,7 +3,7 @@ import { NgModule, Injector } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { createCustomElement } from '@angular/elements';
-import { SharedModule } from 'projects/shared/src/public_api';
+import { PluginFrameworkModule } from 'projects/plugin-framework/src/public_api';
 
 @NgModule({
 	declarations: [
@@ -11,7 +11,7 @@ import { SharedModule } from 'projects/shared/src/public_api';
 	],
 	imports: [
 		BrowserModule,
-		SharedModule.forRoot('/assets/settings.json')
+		PluginFrameworkModule.forRoot()
 	],
 	entryComponents: [AppComponent]
 })

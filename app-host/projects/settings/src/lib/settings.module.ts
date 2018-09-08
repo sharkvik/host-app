@@ -1,6 +1,4 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { PluginCommunicationService } from './plugin-communication.service';
-import { PluginLoaderService } from './plugin-loader.service';
 import { SettingsService } from './settings.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -14,14 +12,12 @@ import { CommonModule } from '@angular/common';
 		HttpClient
 	]
 })
-export class SharedModule {
+export class SettingsModule {
 	static forRoot(settingsUrl: string): ModuleWithProviders {
 		SettingsService.settingsUrl = settingsUrl;
 		return {
-			ngModule: SharedModule,
+			ngModule: SettingsModule,
 			providers: [
-				PluginCommunicationService,
-				PluginLoaderService,
 				SettingsService
 			]
 		};

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { SettingsService } from './settings.service';
+import { Observable } from 'rxjs';
+import { SettingsService } from 'projects/settings/src/public_api';
 
 @Injectable()
 export class PluginLoaderService {

@@ -1,8 +1,7 @@
 import { Component, OnInit, ApplicationRef } from '@angular/core';
 import * as _ from 'lodash';
-import { PluginCommunicationService, PluginCommunicationEvent } from 'projects/shared/src/lib/plugin-communication.service';
 import { Title } from '@angular/platform-browser';
-import { PluginLoaderService } from 'projects/shared/src/lib/plugin-loader.service';
+import { PluginLoaderService, PluginCommunicationService, PluginCommunicationEvent } from 'projects/plugin-framework/src/public_api';
 
 @Component({
 	selector: 'nvm-root',

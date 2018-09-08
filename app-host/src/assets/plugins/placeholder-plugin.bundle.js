@@ -85234,10 +85234,10 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "../shared/src/lib/plugin-communication.service.ts":
-/*!*********************************************************!*\
-  !*** ../shared/src/lib/plugin-communication.service.ts ***!
-  \*********************************************************/
+/***/ "../plugin-framework/src/lib/plugin-communication.service.ts":
+/*!*******************************************************************!*\
+  !*** ../plugin-framework/src/lib/plugin-communication.service.ts ***!
+  \*******************************************************************/
 /*! exports provided: PluginCommunicationService, PluginCommunicationEvent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -85314,10 +85314,56 @@ var PluginCommunicationEvent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../shared/src/lib/plugin-loader.service.ts":
-/*!**************************************************!*\
-  !*** ../shared/src/lib/plugin-loader.service.ts ***!
-  \**************************************************/
+/***/ "../plugin-framework/src/lib/plugin-framework.module.ts":
+/*!**************************************************************!*\
+  !*** ../plugin-framework/src/lib/plugin-framework.module.ts ***!
+  \**************************************************************/
+/*! exports provided: PluginFrameworkModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PluginFrameworkModule", function() { return PluginFrameworkModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _plugin_communication_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./plugin-communication.service */ "../plugin-framework/src/lib/plugin-communication.service.ts");
+/* harmony import */ var _plugin_loader_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./plugin-loader.service */ "../plugin-framework/src/lib/plugin-loader.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var PluginFrameworkModule = /** @class */ (function () {
+    function PluginFrameworkModule() {
+    }
+    PluginFrameworkModule_1 = PluginFrameworkModule;
+    PluginFrameworkModule.forRoot = function () {
+        return {
+            ngModule: PluginFrameworkModule_1,
+            providers: [
+                _plugin_communication_service__WEBPACK_IMPORTED_MODULE_1__["PluginCommunicationService"],
+                _plugin_loader_service__WEBPACK_IMPORTED_MODULE_2__["PluginLoaderService"]
+            ]
+        };
+    };
+    PluginFrameworkModule = PluginFrameworkModule_1 = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])()
+    ], PluginFrameworkModule);
+    return PluginFrameworkModule;
+    var PluginFrameworkModule_1;
+}());
+
+
+
+/***/ }),
+
+/***/ "../plugin-framework/src/lib/plugin-loader.service.ts":
+/*!************************************************************!*\
+  !*** ../plugin-framework/src/lib/plugin-loader.service.ts ***!
+  \************************************************************/
 /*! exports provided: PluginLoaderService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -85326,7 +85372,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PluginLoaderService", function() { return PluginLoaderService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _settings_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./settings.service */ "../shared/src/lib/settings.service.ts");
+/* harmony import */ var projects_settings_src_public_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! projects/settings/src/public_api */ "../settings/src/public_api.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -85378,7 +85424,7 @@ var PluginLoaderService = /** @class */ (function () {
     };
     PluginLoaderService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_settings_service__WEBPACK_IMPORTED_MODULE_2__["SettingsService"]])
+        __metadata("design:paramtypes", [projects_settings_src_public_api__WEBPACK_IMPORTED_MODULE_2__["SettingsService"]])
     ], PluginLoaderService);
     return PluginLoaderService;
 }());
@@ -85387,10 +85433,96 @@ var PluginLoaderService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../shared/src/lib/settings.service.ts":
+/***/ "../plugin-framework/src/public_api.ts":
 /*!*********************************************!*\
-  !*** ../shared/src/lib/settings.service.ts ***!
+  !*** ../plugin-framework/src/public_api.ts ***!
   \*********************************************/
+/*! exports provided: PluginFrameworkModule, PluginCommunicationService, PluginCommunicationEvent, PluginLoaderService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _lib_plugin_framework_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/plugin-framework.module */ "../plugin-framework/src/lib/plugin-framework.module.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PluginFrameworkModule", function() { return _lib_plugin_framework_module__WEBPACK_IMPORTED_MODULE_0__["PluginFrameworkModule"]; });
+
+/* harmony import */ var _lib_plugin_communication_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/plugin-communication.service */ "../plugin-framework/src/lib/plugin-communication.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PluginCommunicationService", function() { return _lib_plugin_communication_service__WEBPACK_IMPORTED_MODULE_1__["PluginCommunicationService"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PluginCommunicationEvent", function() { return _lib_plugin_communication_service__WEBPACK_IMPORTED_MODULE_1__["PluginCommunicationEvent"]; });
+
+/* harmony import */ var _lib_plugin_loader_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/plugin-loader.service */ "../plugin-framework/src/lib/plugin-loader.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PluginLoaderService", function() { return _lib_plugin_loader_service__WEBPACK_IMPORTED_MODULE_2__["PluginLoaderService"]; });
+
+/*
+ * Public API Surface of plugin-framework
+ */
+
+
+
+
+
+/***/ }),
+
+/***/ "../settings/src/lib/settings.module.ts":
+/*!**********************************************!*\
+  !*** ../settings/src/lib/settings.module.ts ***!
+  \**********************************************/
+/*! exports provided: SettingsModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SettingsModule", function() { return SettingsModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _settings_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./settings.service */ "../settings/src/lib/settings.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var SettingsModule = /** @class */ (function () {
+    function SettingsModule() {
+    }
+    SettingsModule_1 = SettingsModule;
+    SettingsModule.forRoot = function (settingsUrl) {
+        _settings_service__WEBPACK_IMPORTED_MODULE_1__["SettingsService"].settingsUrl = settingsUrl;
+        return {
+            ngModule: SettingsModule_1,
+            providers: [
+                _settings_service__WEBPACK_IMPORTED_MODULE_1__["SettingsService"]
+            ]
+        };
+    };
+    SettingsModule = SettingsModule_1 = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClientModule"]
+            ],
+            providers: [
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]
+            ]
+        })
+    ], SettingsModule);
+    return SettingsModule;
+    var SettingsModule_1;
+}());
+
+
+
+/***/ }),
+
+/***/ "../settings/src/lib/settings.service.ts":
+/*!***********************************************!*\
+  !*** ../settings/src/lib/settings.service.ts ***!
+  \***********************************************/
 /*! exports provided: SettingsService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -85465,87 +85597,23 @@ var SettingsService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../shared/src/lib/shared.module.ts":
-/*!******************************************!*\
-  !*** ../shared/src/lib/shared.module.ts ***!
-  \******************************************/
-/*! exports provided: SharedModule */
+/***/ "../settings/src/public_api.ts":
+/*!*************************************!*\
+  !*** ../settings/src/public_api.ts ***!
+  \*************************************/
+/*! exports provided: SettingsService, SettingsModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharedModule", function() { return SharedModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _plugin_communication_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./plugin-communication.service */ "../shared/src/lib/plugin-communication.service.ts");
-/* harmony import */ var _plugin_loader_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./plugin-loader.service */ "../shared/src/lib/plugin-loader.service.ts");
-/* harmony import */ var _settings_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./settings.service */ "../shared/src/lib/settings.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
+/* harmony import */ var _lib_settings_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/settings.service */ "../settings/src/lib/settings.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SettingsService", function() { return _lib_settings_service__WEBPACK_IMPORTED_MODULE_0__["SettingsService"]; });
 
-
-
-
-
-
-var SharedModule = /** @class */ (function () {
-    function SharedModule() {
-    }
-    SharedModule_1 = SharedModule;
-    SharedModule.forRoot = function (settingsUrl) {
-        _settings_service__WEBPACK_IMPORTED_MODULE_3__["SettingsService"].settingsUrl = settingsUrl;
-        return {
-            ngModule: SharedModule_1,
-            providers: [
-                _plugin_communication_service__WEBPACK_IMPORTED_MODULE_1__["PluginCommunicationService"],
-                _plugin_loader_service__WEBPACK_IMPORTED_MODULE_2__["PluginLoaderService"],
-                _settings_service__WEBPACK_IMPORTED_MODULE_3__["SettingsService"]
-            ]
-        };
-    };
-    SharedModule = SharedModule_1 = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
-            imports: [
-                _angular_common__WEBPACK_IMPORTED_MODULE_5__["CommonModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"]
-            ],
-            providers: [
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]
-            ]
-        })
-    ], SharedModule);
-    return SharedModule;
-    var SharedModule_1;
-}());
-
-
-
-/***/ }),
-
-/***/ "../shared/src/public_api.ts":
-/*!***********************************!*\
-  !*** ../shared/src/public_api.ts ***!
-  \***********************************/
-/*! exports provided: PluginCommunicationService, PluginCommunicationEvent, SharedModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _lib_plugin_communication_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/plugin-communication.service */ "../shared/src/lib/plugin-communication.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PluginCommunicationService", function() { return _lib_plugin_communication_service__WEBPACK_IMPORTED_MODULE_0__["PluginCommunicationService"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PluginCommunicationEvent", function() { return _lib_plugin_communication_service__WEBPACK_IMPORTED_MODULE_0__["PluginCommunicationEvent"]; });
-
-/* harmony import */ var _lib_shared_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/shared.module */ "../shared/src/lib/shared.module.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SharedModule", function() { return _lib_shared_module__WEBPACK_IMPORTED_MODULE_1__["SharedModule"]; });
+/* harmony import */ var _lib_settings_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/settings.module */ "../settings/src/lib/settings.module.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SettingsModule", function() { return _lib_settings_module__WEBPACK_IMPORTED_MODULE_1__["SettingsModule"]; });
 
 /*
- * Public API Surface of shared
+ * Public API Surface of settings
  */
 
 
@@ -85646,7 +85714,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _angular_elements__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/elements */ "../../node_modules/@angular/elements/fesm5/elements.js");
-/* harmony import */ var projects_shared_src_public_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! projects/shared/src/public_api */ "../shared/src/public_api.ts");
+/* harmony import */ var projects_plugin_framework_src_public_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! projects/plugin-framework/src/public_api */ "../plugin-framework/src/public_api.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -85676,7 +85744,7 @@ var AppModule = /** @class */ (function () {
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
-                projects_shared_src_public_api__WEBPACK_IMPORTED_MODULE_4__["SharedModule"].forRoot('/assets/settings.json')
+                projects_plugin_framework_src_public_api__WEBPACK_IMPORTED_MODULE_4__["PluginFrameworkModule"].forRoot()
             ],
             entryComponents: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]]
         }),

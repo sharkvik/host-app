@@ -17,11 +17,17 @@
 			"dom"
 		],
 		"paths": {
-			"shared": [
-				"dist/shared"
+			"settings": [
+				"dist/settings"
 			],
-			"shared/*": [
-				"dist/shared/*"
+			"settings/*": [
+				"dist/settings/*"
+			],
+			"plugin-framework": [
+				"dist/plugin-framework"
+			],
+			"plugin-framework/*": [
+				"dist/plugin-framework/*"
 			]
 		}
 	}

@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { SettingsService } from 'projects/shared/src/lib/settings.service';
-import { SharedModule } from 'projects/shared/src/public_api';
+import { SettingsModule, SettingsService } from 'projects/settings/src/public_api';
+import { PluginFrameworkModule } from 'projects/plugin-framework/src/public_api';
 
 export const settongsProvider = (config: SettingsService) => () => {
 	return Promise.all([config.load()]);
@@ -17,7 +17,8 @@ export const useAppConfigProvider = { provide: APP_INITIALIZER, useFactory: sett
 	],
 	imports: [
 		BrowserModule,
-		SharedModule.forRoot('/assets/settings.json')
+		SettingsModule.forRoot('/assets/settings.json'),
+		PluginFrameworkModule.forRoot()
 	],
 	providers: [
 		useAppConfigProvider
