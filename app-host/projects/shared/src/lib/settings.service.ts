@@ -8,30 +8,42 @@ export class SettingsService {
 	public static settingsUrl: string;
 
 	private _settings: ReplaySubject<any>;
+	private _syncSettings: any;
 
-	constructor(private _http: HttpClient) { }
-
-	public load() {
-		if (_.isNil(this._settings)) {
-			this._settings = new ReplaySubject<any>(1);
-			this._http.get(SettingsService.settingsUrl)
-				.subscribe((res) => {
-					this._settings.next(res);
-				});
-		}
+	constructor(private _http: HttpClient) {
 	}
 
-	public get modules(): Observable<{name: string, url: string, selector: string}[]> {
-		return new Observable<{name: string, url: string, selector: string}[]>((s) => {
+	public load(): Promise<void> {
+		if (_.isNil(this._settings)) {
+			this._settings = new ReplaySubject<any>(1);
+			return new Promise<void>((resolve, ref) => this._http.get(SettingsService.settingsUrl)
+				.subscribe((res) => {
+					this._settings.next(res);
+					this._syncSettings = res;
+					resolve();
+				}));
+		}
+		return this._settings.toPromise();
+	}
+
+	public getAsync<T>(key: string): Observable<T> {
+		return new Observable<T>((s) => {
 			if ( _.isNil(this._settings) ) {
-				s.next([]);
+				s.next(null);
 				s.complete();
 			}
 			this._settings
 				.subscribe((set) => {
-					s.next(set.modules);
+					s.next(set[key]);
 					s.complete();
 				});
 		});
+	}
+
+	public get<T>(key: string): T {
+		if (_.isNil(this._syncSettings)) {
+			return null;
+		}
+		return this._syncSettings[key] as T;
 	}
 }

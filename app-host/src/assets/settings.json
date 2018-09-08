@@ -1,6 +1,6 @@
 {
 	"modules": [
-		{"name": "placeholder-plugin", "url": "/assets/plugins/placeholder-plugin.bundle.js", "selector": "placeholder-plugin"},
-		{"name": "data-plugin", "url": "/assets/plugins/data-plugin.bundle.js", "selector": "data-plugin"}
+		{"id": "placeholder-plugin", "name": "Пустая страница", "url": "/assets/plugins/placeholder-plugin.bundle.js", "selector": "placeholder-plugin"},
+		{"id": "data-plugin", "name": "Установщик тайтла", "url": "/assets/plugins/data-plugin.bundle.js", "selector": "data-plugin"}
 	]
 }

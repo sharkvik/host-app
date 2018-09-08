@@ -11,7 +11,7 @@ import { SharedModule } from 'projects/shared/src/public_api';
 	],
 	imports: [
 		BrowserModule,
-		SharedModule.forRoot()
+		SharedModule.forRoot('/assets/settings.json')
 	],
 	entryComponents: [AppComponent]
 })

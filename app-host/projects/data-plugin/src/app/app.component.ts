@@ -6,9 +6,9 @@ import { PluginCommunicationService } from '../../../shared/src/lib/plugin-commu
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnDestroy {
-	title = 'data-plugin';
+	public title = 'Установщик тайтла';
 	constructor(private _sharedService: PluginCommunicationService) {
-		this._sharedService.trigger('changeTitle', 'data-plugin', 'data-plugin');
+		this._sharedService.trigger('changeTitle', 'data-plugin', this.title);
 	}
 
 	public ngOnDestroy(): void {

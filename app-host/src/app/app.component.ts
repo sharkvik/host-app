@@ -1,8 +1,8 @@
 import { Component, OnInit, ApplicationRef } from '@angular/core';
-import { PluginLoaderService } from './plugin-loader.service';
 import * as _ from 'lodash';
 import { PluginCommunicationService, PluginCommunicationEvent } from 'projects/shared/src/lib/plugin-communication.service';
 import { Title } from '@angular/platform-browser';
+import { PluginLoaderService } from 'projects/shared/src/lib/plugin-loader.service';
 
 @Component({
 	selector: 'nvm-root',
@@ -10,7 +10,7 @@ import { Title } from '@angular/platform-browser';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-	public plugins: string[] = [];
+	public plugins: {id: string, name: string, url: string, selector: string}[] = [];
 	public title = 'nvm-root';
 
 	private _currentPlugin: HTMLElement;
@@ -33,17 +33,13 @@ export class AppComponent implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this._pluginLoader
-			.registredPlugins
-			.subscribe( (keys: string[]) => {
-				this.plugins = keys;
-				this._app.tick();
-			});
+		this.plugins = this._pluginLoader.registredPlugins;
+		Promise.resolve(null).then(() => this._app.tick());
 	}
 
-	public loadPlugin(key: string): void {
+	public loadPlugin(plugin: {id: string, name: string, url: string, selector: string}): void {
 		this._pluginLoader
-			.loadPlugin(key)
+			.loadPlugin(plugin.id)
 			.subscribe((content: HTMLElement) => this._displayPlugin(content));
 	}
 
