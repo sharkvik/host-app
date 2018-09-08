@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
 	public title = 'nvm-root';
 
 	private _currentPlugin: HTMLElement;
+	private _currentPluginId = '';
 	constructor(
 		private _app: ApplicationRef,
 		private _pluginLoader: PluginLoaderService,
@@ -37,18 +38,22 @@ export class AppComponent implements OnInit {
 	}
 
 	public loadPlugin(plugin: {id: string, name: string, url: string, selector: string}): void {
+		if (this._currentPluginId.toUpperCase() === plugin.id.toUpperCase()) {
+			return;
+		}
 		this._pluginLoader
 			.loadPlugin(plugin.id)
-			.subscribe((content: HTMLElement) => this._displayPlugin(content));
+			.subscribe((content: HTMLElement) => this._displayPlugin(content, plugin.id));
 	}
 
-	private _displayPlugin(content: HTMLElement) {
+	private _displayPlugin(content: HTMLElement, id: string) {
 		const container = document.getElementById('plugin-placeholder');
 		if (!_.isNil(this._currentPlugin)) {
 			container.removeChild(this._currentPlugin);
 		}
 		container.appendChild(content);
 		this._currentPlugin = content;
+		this._currentPluginId = id;
 		this._app.tick();
 	}
 }
