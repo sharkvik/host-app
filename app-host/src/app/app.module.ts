@@ -2,16 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { SettingsModule } from '../settings/settings.module';
-import { SettingsService } from '../settings/settings.service';
-import { PluginLoaderService } from './plugin-loader.service';
-import { SharedModule } from 'projects/shared/src/public_api';
+import { SettingsModule, SettingsService } from 'projects/settings/src/public_api';
+import { PluginFrameworkModule } from 'projects/plugin-framework/src/public_api';
 
-export const settongsProvider = (config: SettingsService) => () => {
-	return Promise.all([config.load()]);
+export const settingsProvider = (config: SettingsService) => () => {
+	return Promise.all([config.load('/assets/settings.json')]);
 };
 
-export const useAppConfigProvider = { provide: APP_INITIALIZER, useFactory: settongsProvider, deps: [SettingsService], multi: true };
+export const useAppConfigProvider = { provide: APP_INITIALIZER, useFactory: settingsProvider, deps: [SettingsService], multi: true };
 
 @NgModule({
 	declarations: [
@@ -19,12 +17,11 @@ export const useAppConfigProvider = { provide: APP_INITIALIZER, useFactory: sett
 	],
 	imports: [
 		BrowserModule,
-		SettingsModule.forRoot('/assets/settings.json'),
-		SharedModule.forRoot()
+		SettingsModule.forRoot(),
+		PluginFrameworkModule.forRoot()
 	],
 	providers: [
-		useAppConfigProvider,
-		PluginLoaderService
+		useAppConfigProvider
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 	bootstrap: [AppComponent]

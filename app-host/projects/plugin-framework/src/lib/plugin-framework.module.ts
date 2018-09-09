@@ -1,13 +1,15 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { PluginCommunicationService } from './plugin-communication.service';
+import { PluginLoaderService } from './plugin-loader.service';
 
 @NgModule()
-export class SharedModule {
+export class PluginFrameworkModule {
 	static forRoot(): ModuleWithProviders {
 		return {
-			ngModule: SharedModule,
+			ngModule: PluginFrameworkModule,
 			providers: [
-				PluginCommunicationService
+				PluginCommunicationService,
+				PluginLoaderService
 			]
 		};
 	}

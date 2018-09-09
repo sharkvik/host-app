@@ -1,7 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { SettingsService } from './settings.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
 	imports: [
@@ -13,8 +13,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 	]
 })
 export class SettingsModule {
-	static forRoot(settingsUrl: string): ModuleWithProviders {
-		SettingsService.settingsUrl = settingsUrl;
+	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: SettingsModule,
 			providers: [
