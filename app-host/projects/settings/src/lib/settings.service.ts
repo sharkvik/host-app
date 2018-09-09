@@ -3,20 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import * as _ from 'lodash';
 import { ReplaySubject, Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class SettingsService {
-	public static settingsUrl: string;
-
 	private _settings: ReplaySubject<any>;
 	private _syncSettings: any;
 
 	constructor(private _http: HttpClient) {
 	}
 
-	public load(): Promise<void> {
+	public load(settingsUrl: string): Promise<void> {
 		if (_.isNil(this._settings)) {
 			this._settings = new ReplaySubject<any>(1);
-			return new Promise<void>((resolve, ref) => this._http.get(SettingsService.settingsUrl)
+			return new Promise<void>((resolve, ref) => this._http.get(settingsUrl)
 				.subscribe((res) => {
 					this._settings.next(res);
 					this._syncSettings = res;

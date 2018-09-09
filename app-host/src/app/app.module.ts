@@ -5,11 +5,11 @@ import { AppComponent } from './app.component';
 import { SettingsModule, SettingsService } from 'projects/settings/src/public_api';
 import { PluginFrameworkModule } from 'projects/plugin-framework/src/public_api';
 
-export const settongsProvider = (config: SettingsService) => () => {
-	return Promise.all([config.load()]);
+export const settingsProvider = (config: SettingsService) => () => {
+	return Promise.all([config.load('/assets/settings.json')]);
 };
 
-export const useAppConfigProvider = { provide: APP_INITIALIZER, useFactory: settongsProvider, deps: [SettingsService], multi: true };
+export const useAppConfigProvider = { provide: APP_INITIALIZER, useFactory: settingsProvider, deps: [SettingsService], multi: true };
 
 @NgModule({
 	declarations: [
@@ -17,7 +17,7 @@ export const useAppConfigProvider = { provide: APP_INITIALIZER, useFactory: sett
 	],
 	imports: [
 		BrowserModule,
-		SettingsModule.forRoot('/assets/settings.json'),
+		SettingsModule.forRoot(),
 		PluginFrameworkModule.forRoot()
 	],
 	providers: [

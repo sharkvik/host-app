@@ -13,8 +13,7 @@ import { CommonModule } from '@angular/common';
 	]
 })
 export class SettingsModule {
-	static forRoot(settingsUrl: string): ModuleWithProviders {
-		SettingsService.settingsUrl = settingsUrl;
+	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: SettingsModule,
 			providers: [

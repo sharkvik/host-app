@@ -71,13 +71,12 @@
   optionalDependencies:
     node-sass "^4.9.3"
 
-"@angular-devkit/build-ng-packagr@~0.6.8":
-  version "0.6.8"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-ng-packagr/-/build-ng-packagr-0.6.8.tgz#27a902ac58b4b6a17a458b81b04d6c6f0211cd16"
+"@angular-devkit/build-ng-packagr@0.7.5":
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-ng-packagr/-/build-ng-packagr-0.7.5.tgz#68cb479606d185024a1908facf01668c91b0ce91"
   dependencies:
-    "@angular-devkit/architect" "0.6.8"
-    "@angular-devkit/core" "0.6.8"
-    resolve "^1.5.0"
+    "@angular-devkit/architect" "0.7.5"
+    "@angular-devkit/core" "0.7.5"
     rxjs "^6.0.0"
 
 "@angular-devkit/build-optimizer@0.7.5":
@@ -4272,7 +4271,7 @@ ng-packagr@^3.0.0-rc.2:
     uglify-js "^3.0.7"
     update-notifier "^2.3.0"
 
-ngx-build-plus@^6.1.0:
+ngx-build-plus@6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/ngx-build-plus/-/ngx-build-plus-6.1.0.tgz#59f9705774d5c05b6e29fb299e2d6889638d6fc6"
   dependencies:
