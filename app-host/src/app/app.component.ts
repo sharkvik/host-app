@@ -1,7 +1,7 @@
 import { Component, OnInit, ApplicationRef } from '@angular/core';
 import * as _ from 'lodash';
 import { Title } from '@angular/platform-browser';
-import { PluginLoaderService, PluginCommunicationService, PluginCommunicationEvent } from 'projects/plugin-framework/src/public_api';
+import { PluginLoaderService, PluginCommunicationService, PluginCommunicationEvent, PluginSettings } from 'projects/plugin-framework/src/public_api';
 
 @Component({
 	selector: 'nvm-root',
@@ -9,11 +9,8 @@ import { PluginLoaderService, PluginCommunicationService, PluginCommunicationEve
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-	public plugins: {id: string, name: string, url: string, selector: string}[] = [];
+	public plugins: PluginSettings[] = [];
 	public title = 'nvm-root';
-
-	private _currentPlugin: HTMLElement;
-	private _currentPluginId = '';
 	constructor(
 		private _app: ApplicationRef,
 		private _pluginLoader: PluginLoaderService,
@@ -30,6 +27,10 @@ export class AppComponent implements OnInit {
 				}
 				this._app.tick();
 			});
+		this._pluginShareSrevice.registerHostEvent<string>('nvm-root', 'pluginLoaded')
+			.subscribe((data: PluginCommunicationEvent<string>) => {
+				this._app.tick();
+			});
 	}
 
 	public ngOnInit(): void {
@@ -37,23 +38,7 @@ export class AppComponent implements OnInit {
 		Promise.resolve(null).then(() => this._app.tick());
 	}
 
-	public loadPlugin(plugin: {id: string, name: string, url: string, selector: string}): void {
-		if (this._currentPluginId.toUpperCase() === plugin.id.toUpperCase()) {
-			return;
-		}
-		this._pluginLoader
-			.loadPlugin(plugin.id)
-			.subscribe((content: HTMLElement) => this._displayPlugin(content, plugin.id));
-	}
-
-	private _displayPlugin(content: HTMLElement, id: string) {
-		const container = document.getElementById('plugin-placeholder');
-		if (!_.isNil(this._currentPlugin)) {
-			container.removeChild(this._currentPlugin);
-		}
-		container.appendChild(content);
-		this._currentPlugin = content;
-		this._currentPluginId = id;
-		this._app.tick();
+	public loadPlugin(plugin: PluginSettings): void {
+		this._pluginLoader.loadPlugin(plugin.id);
 	}
 }

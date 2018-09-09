@@ -4,15 +4,20 @@
 	"scripts": {
 		"ng": "ng",
 		"start": "npm run build-all && ng serve --port 3001",
+		"start:prod": "npm run build-all:prod && ng serve --port 3001",
 		"build": "ng build",
+		"build:prod": "npm run build-all:prod && ng build --prod",
 		"test": "ng test",
 		"lint": "ng lint",
 		"e2e": "ng e2e",
 		"build:placeholder-plugin": "ng build --project placeholder-plugin --output-hashing none",
+		"build:placeholder-plugin:prod": "ng build --prod --project placeholder-plugin --output-hashing none",
 		"copy:placeholder-plugin": "cpr dist/placeholder-plugin/main.js src/assets/plugins/placeholder-plugin.bundle.js -o",
 		"build:data-plugin": "ng build --project data-plugin --output-hashing none",
+		"build:data-plugin:prod": "ng build --prod --project data-plugin --output-hashing none",
 		"copy:data-plugin": "cpr dist/data-plugin/main.js src/assets/plugins/data-plugin.bundle.js -o",
-		"build-all": "npm run build:placeholder-plugin && npm run copy:placeholder-plugin && npm run build:data-plugin && npm run copy:data-plugin"
+		"build-all": "npm run build:placeholder-plugin && npm run copy:placeholder-plugin && npm run build:data-plugin && npm run copy:data-plugin",
+		"build-all:prod": "npm run build:placeholder-plugin:prod && npm run copy:placeholder-plugin && npm run build:data-plugin:prod && npm run copy:data-plugin"
 	},
 	"private": true,
 	"dependencies": {

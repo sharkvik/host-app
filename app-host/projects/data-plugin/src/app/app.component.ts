@@ -9,6 +9,7 @@ export class AppComponent implements OnDestroy {
 	public title = 'Установщик тайтла';
 	constructor(private _sharedService: PluginCommunicationService) {
 		this._sharedService.trigger('changeTitle', 'data-plugin', this.title);
+		this._sharedService.trigger('pluginLoaded', 'data-plugin', null);
 	}
 
 	public ngOnDestroy(): void {
