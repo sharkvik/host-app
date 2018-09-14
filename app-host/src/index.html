@@ -1,14 +1,38 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>AppHost</title>
-  <base href="/">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<head>
+	<meta charset="utf-8">
+	<title>AppHost</title>
+	<base href="/">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<script>
+		(function () {
+			if (typeof window.CustomEvent === "function") return false; //If not IE
+
+			function CustomEvent(event, params) {
+				params = params || {
+					bubbles: false,
+					cancelable: false,
+					detail: undefined
+				};
+				var evt = document.createEvent('CustomEvent');
+				evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+				return evt;
+			}
+
+			CustomEvent.prototype = window.Event.prototype;
+
+			window.CustomEvent = CustomEvent;
+		})();
+
+	</script>
 </head>
+
 <body>
-  <nvm-root></nvm-root>
+	<nvm-root></nvm-root>
 </body>
+
 </html>
